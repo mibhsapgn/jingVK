@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菁菁健康顧問 | 陪伴你建立健康生活<br>遇見更好的自己</title>
+    
+    <!-- 引入字體 Noto Sans TC (現代無襯線字體) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Phosphor Icons (Line Icons 風格) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind 自定義設定 (MUJI & Apple Style) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FAF9F6',      /* 柔和米白背景 */
+                            text: '#2C2C2C',    /* 柔和深灰文字 */
+                            muted: '#6B6B6B',   /* 柔和次要文字 */
+                            accent: '#8B9D83',  /* 溫暖自然綠 (點綴) */
+                            card: '#FFFFFF',    /* 卡片純白 */
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.04)',
+                        'softer': '0 4px 20px -5px rgba(0,0,0,0.02)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF9F6;
+            color: #2C2C2C;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 隱藏滾動條但保持可滾動 (美觀) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E5E5E5; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4D4D4; 
+        }
+
+        /* 純淡入動畫 (不使用滑動，確保效能與簡潔) */
+        .fade-element {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .fade-element.is-visible {
+            opacity: 1;
+        }
+
+        /* 關於我文字收折樣式 */
+        .bio-text-container {
+            position: relative;
+        }
+        .bio-text-collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /* 預設顯示4行 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .bio-text-expanded {
+            display: block;
+        }
+
+        /* Lightbox (圖片放大) */
+        #lightbox {
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- 導覽列 -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-brand-bg/80 backdrop-blur-md border-b border-gray-100" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-medium tracking-wider text-brand-text">菁菁健康顧問</a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-brand-muted">
+                <a href="#about" class="hover:text-brand-text transition-colors">關於我</a>
+                <a href="#cnfcd" class="hover:text-brand-text transition-colors">認識 CNFCD</a>
+                <a href="#gallery" class="hover:text-brand-text transition-colors">成果分享</a>
+            </div>
+            <a href="#contact" class="px-5 py-2 bg-brand-text text-white rounded-full text-sm font-medium hover:bg-black transition-colors shadow-sm">
+                預約諮詢
+            </a>
+        </div>
+    </nav>
+
+    <!-- ① Hero Banner -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            <!-- Left: Text -->
+            <div class="w-full md:w-[55%] fade-element z-10">
+                <h1 class="text-4xl md:text-5xl xl:text-6xl font-bold leading-tight mb-6 text-brand-text whitespace-nowrap">
+                    陪伴你建立健康生活，<br class="hidden md:block lg:hidden">遇見更好的自己。
+                </h1>
+                <p class="text-lg md:text-xl text-brand-muted leading-relaxed mb-10 max-w-lg font-light">
+                    從日常習慣開始，打造適合自己的健康生活模式。
+                </p>
+                <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 bg-brand-text text-white rounded-full text-lg font-medium hover:bg-black transition-all duration-300 shadow-softer hover:shadow-soft gap-2 group">
+                    立即聯絡我 <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <!-- Right: Image -->
+            <div class="w-full md:w-[45%] fade-element" style="transition-delay: 0.2s;">
+                <div class="relative rounded-[2rem] overflow-hidden shadow-soft aspect-[4/5] md:aspect-[3/4] bg-white p-2">
+                    <img src="./個人品牌形象照片.jpg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x800/E5E5E5/8B9D83?text=個人品牌形象照片.jpg';" 
+                         alt="菁菁健康顧問" class="object-cover w-full h-full rounded-[1.5rem]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ② About Me -->
+    <section id="about" class="py-24 px-6 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.02)]">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start mb-20">
+                <!-- Left: Photo -->
+                <div class="w-full lg:w-5/12 fade-element">
+                    <div class="rounded-[2rem] overflow-hidden shadow-soft aspect-[3/4] sticky top-32 cursor-pointer bg-brand-bg p-2" onclick="openLightbox(this)">
+                         <img src="./個人品牌形象照片.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/600x800/E5E5E5/8B9D83?text=個人品牌形象照片.jpg';" 
+                              alt="關於我" class="object-cover w-full h-full rounded-[1.5rem]">
+                    </div>
+                </div>
+
+                <!-- Right: Story -->
+                <div class="w-full lg:w-7/12 fade-element" style="transition-delay: 0.2s;">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-bg text-brand-muted text-sm font-medium mb-6">
+                        <i class="ph-fill ph-leaf text-brand-accent"></i> 關於我的真實故事
+                    </div>
+                    <h2 class="text-3xl font-bold mb-8 text-brand-text">從無效減肥到找回自信的旅程</h2>
+                    
+                    <div class="bio-text-container">
+                        <div id="bio-text" class="text-brand-muted leading-loose text-lg font-light space-y-6 bio-text-collapsed">
+                            <p>我是經營補習班20年的負責人兼補教老師－菁菁，也經常受邀擔任藝文活動主持人與講師。因長期日夜顛倒，加上認識西點與快炒主廚朋友們，常常吃美食，體重從43公斤一路胖到69.9公斤。</p>
+                            <p>出席活動時，曾被人當面勸「不要再吃了」，讓我既委屈又難過，因為當時我已經長期一天只吃一餐燙青菜、水煮魚，卻還是不斷發胖。13年來，我試遍各種減肥方式：代餐、減肥茶、各國減肥產品、冷凍減脂、重訓一年（請教練）、賀X芙、NuS…等，花費上百萬元，卻始終陷入復胖的惡性循環。</p>
+                            <p>直到遇見CNFCD，我每天正常吃不用再挨餓，短短幾週就有明顯變化，3個半月成功減下近16公斤，其中12公斤是脂肪，減脂率高達77%，至今一年多依然沒有復胖。</p>
+                            <p>瘦下來後，不僅衣服從3L穿回S號，嚴重的胃食道逆流、胃酸也沒再復發過，長年背痛、膝蓋痛也改善了，更重要的是重新找回健康、自信，終於能自在地站在舞台上。</p>
+                        </div>
+                    </div>
+                    <button id="read-more-btn" class="mt-6 flex items-center gap-2 text-brand-text font-medium border-b border-gray-300 pb-1 hover:border-brand-text transition-colors">
+                        <span>顯示更多</span> <i class="ph ph-caret-down"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Transformation Photos (3 images) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 fade-element">
+                <div class="rounded-[2rem] overflow-hidden shadow-softer aspect-[4/5] cursor-pointer bg-brand-bg p-2" onclick="openLightbox(this)">
+                    <img src="./關於我-1.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x500/E5E5E5/8B9D83?text=關於我-1.jpg';" alt="減脂歷程1" class="object-cover w-full h-full rounded-[1.5rem]">
+                </div>
+                <div class="rounded-[2rem] overflow-hidden shadow-softer aspect-[4/5] cursor-pointer bg-brand-bg p-2" onclick="openLightbox(this)">
+                    <img src="./關於我-2.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x500/E5E5E5/8B9D83?text=關於我-2.jpg';" alt="減脂歷程2" class="object-cover w-full h-full rounded-[1.5rem]">
+                </div>
+                <div class="rounded-[2rem] overflow-hidden shadow-softer aspect-[4/5] cursor-pointer bg-brand-bg p-2" onclick="openLightbox(this)">
+                    <img src="./關於我-3.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x500/E5E5E5/8B9D83?text=關於我-3.jpg';" alt="減脂歷程3" class="object-cover w-full h-full rounded-[1.5rem]">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ③ 什麼是CNFCD？ -->
+    <section id="cnfcd" class="py-24 px-6 bg-brand-bg">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="text-center mb-16 fade-element">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4">什麼是 CNFCD？</h2>
+                <p class="text-brand-muted font-light">基於科學實證，打造永續的健康生活</p>
+            </div>
+
+            <!-- Certificate Section -->
+            <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-soft mb-12 fade-element">
+                <div class="flex flex-col-reverse md:flex-row gap-12 items-center">
+                    <div class="w-full md:w-1/2">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-bg text-brand-muted text-sm font-medium mb-6">
+                            <i class="ph-fill ph-certificate text-brand-accent"></i> 國際認證
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 text-brand-text leading-snug">【CNFCD 論文收錄國際期刊】</h3>
+                        <div class="text-brand-muted leading-loose font-light space-y-4">
+                            <p>由研究主持人怡懋博士（Dr. Yi-Maun Subeq）主導的 CNFCD 系統化研究，正式被 SCI / SCIE 雙指標學術期刊《Enterprise Information Systems》（企業資訊系統）收錄並發表。</p>
+                            <p>研究數據來自 18,539 位使用 CNFCD 系統超過 60 天的真實使用者，採用大規模真實世界回溯性研究方法。</p>
+                            <div class="bg-brand-bg p-6 rounded-2xl my-6">
+                                <h4 class="font-medium text-brand-text mb-2">論文研究指出：</h4>
+                                <p>平均 60 天，體重減少 <strong class="text-brand-text">11.60 公斤</strong>、體脂下降 <strong class="text-brand-text">6.79%</strong>、內臟脂肪降低 <strong class="text-brand-text">2.82個等級</strong>，肌肉蛋白質微幅增加 <strong class="text-brand-text">0.13 公斤</strong>。</p>
+                            </div>
+                            <p>這套系統涵蓋五大元素的協同運作：全面營養、正向心理、彈性飲食設計、即時數位回饋，以及專業顧問陪伴。</p>
+                            <p class="italic border-l-2 border-brand-accent pl-4">怡懋博士在影片中說：「真正能走得長遠的，是誠實，是把自己做得更專業。」<br>這篇論文，是 CNFCD 在真實世界中的科學觀察記錄。</p>
+                        </div>
+                        <a href="https://www.facebook.com/reel/1321267809486536" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-brand-bg text-brand-text rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
+                            <i class="ph-fill ph-play-circle text-lg"></i> 觀看怡懋博士專訪影片
+                        </a>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <!-- 獎狀圖片 (完整顯示) -->
+                        <div class="rounded-[1.5rem] overflow-hidden bg-brand-bg p-4 flex items-center justify-center">
+                             <img src="./獎狀.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/E5E5E5/8B9D83?text=獎狀.jpg';" alt="SCI/SCIE 雙指標學術期刊收錄證明" class="object-contain w-full h-auto rounded-xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group 1: Principle -->
+            <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-soft mb-12 fade-element">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="w-full md:w-5/12 order-2 md:order-1">
+                        <!-- CNFCD 原理圖 (完整顯示) -->
+                        <div class="rounded-[1.5rem] overflow-hidden bg-brand-bg p-4 flex items-center justify-center aspect-square">
+                             <img src="./生活習慣調整.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x600/E5E5E5/8B9D83?text=生活習慣調整.jpg';" alt="CNFCD 原理" class="object-contain w-full h-full rounded-xl">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-7/12 order-1 md:order-2">
+                        <h3 class="text-2xl font-bold mb-6 text-brand-text leading-snug">【CNFCD：健康不是單一行為可以達成的】</h3>
+                        <div class="text-brand-muted leading-loose font-light space-y-4">
+                            <p>Yvonne博士在專訪時說了一句關鍵的話：<br><span class="font-medium text-brand-text text-lg">「沒有一個單一的方法或產品，能把人帶回真正的健康。 」</span></p>
+                            <p>健康不是靠「做一次」、不是靠「吃某一種東西」、更不是靠1～2週的努力。<br>它是一點一滴、反覆累積而成的：<br>每天上秤、每天做正確的選擇、每天願意持續了解自己的身體。</p>
+                            <div class="bg-brand-bg rounded-2xl p-6 my-6">
+                                <p class="font-medium text-brand-text mb-4">微康這些年的成果，不是靠任何單一工具所創造的，而是靠「人」：</p>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-accent text-xl"></i> 顧問的陪伴與提醒</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-accent text-xl"></i> 一句句正向的鼓勵</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-accent text-xl"></i> 每次定聚帶來的快樂與動力</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-accent text-xl"></i> 每天APP上直觀的數據回饋</li>
+                                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-accent text-xl"></i> 夥伴之間互相支持的力量</li>
+                                </ul>
+                            </div>
+                            <p class="font-medium text-brand-text">這些微小的觀念改變，讓我們永生世代安康，這就是微康。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group 2: TCA Cycle -->
+            <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-soft fade-element">
+                <div class="flex flex-col md:flex-row gap-12 items-center">
+                    <div class="w-full md:w-7/12">
+                        <h3 class="text-2xl font-bold mb-6 text-brand-text leading-snug">TCA 能量循環（檸檬酸循環）是什麼？</h3>
+                        <div class="text-brand-muted leading-loose font-light space-y-4">
+                            <p>TCA 能量循環，又稱為檸檬酸循環（Citric Acid Cycle）或克氏循環（Krebs Cycle），是人體細胞內最核心的能量代謝路徑之一。在科學上，這個過程被歸類為檸檬酸循環，負責將我們從食物中獲得的營養，轉換成身體可以直接使用的能量。</p>
+                            <div class="bg-brand-bg rounded-2xl p-6 my-6 font-medium text-brand-text flex items-start gap-4">
+                                <i class="ph-fill ph-lightning text-2xl text-amber-500 mt-1"></i>
+                                <p>簡單來說：<br>我們吃進去的食物 → 經過代謝 → 進入 TCA 循環 → 產生身體能量（ATP）</p>
+                            </div>
+                            <h4 class="font-medium text-brand-text text-lg mt-8 mb-2">TCA 循環與生活狀態的關聯</h4>
+                            <p>從整體健康觀點來看，TCA 循環的運作效率，與以下因素有關：</p>
+                            <ul class="list-disc list-inside ml-2 space-y-2">
+                                <li>作息規律（生理節律）</li>
+                                <li>營養攝取是否均衡</li>
+                                <li>壓力與身心狀態</li>
+                                <li>身體活動量</li>
+                            </ul>
+                            <p class="mt-4">當生活節奏較穩定時，身體能量代謝系統通常也較順暢；反之，長期壓力或作息混亂，可能讓整體代謝效率下降。<br><strong class="text-brand-text font-medium">它就是把「食物能量」轉換成「身體能量」的核心引擎。</strong></p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-5/12">
+                        <!-- TCA 循環圖 (完整顯示) -->
+                        <div class="rounded-[1.5rem] overflow-hidden bg-brand-bg p-4 flex items-center justify-center aspect-square">
+                             <img src="./TCA.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x600/E5E5E5/8B9D83?text=TCA.jpg';" alt="TCA 能量循環" class="object-contain w-full h-full rounded-xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ④ 成果分享 (Gallery) -->
+    <section id="gallery" class="py-24 px-6 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.02)]">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4 fade-element">成果分享</h2>
+            <p class="text-brand-muted font-light mb-16 fade-element">遇見更好的自己，他們做到了</p>
+            
+            <!-- 3x3 Grid -->
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 fade-element">
+                <!-- 圖片由 JavaScript 動態生成載入 -->
+            </div>
+
+            <button id="load-more-btn" class="mt-16 inline-flex items-center justify-center px-8 py-3 bg-brand-bg text-brand-text rounded-full text-sm font-medium hover:bg-gray-200 transition-colors fade-element">
+                查看更多案例
+            </button>
+        </div>
+    </section>
+
+    <!-- ⑤ Contact 區 -->
+    <section id="contact" class="py-24 px-6 bg-brand-bg">
+        <div class="max-w-3xl mx-auto text-center fade-element">
+            <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4">開始你的健康旅程</h2>
+            <p class="text-brand-muted font-light mb-12">準備好改變了嗎？透過以下方式與我聯繫</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+                <!-- LINE -->
+                <a href="https://line.me/ti/p/~naiching0310" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white rounded-[2rem] shadow-softer hover:shadow-soft transition-shadow group">
+                    <div class="w-12 h-12 bg-[#06C755]/10 text-[#06C755] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-chat-circle-text text-2xl"></i>
+                    </div>
+                    <span class="font-medium text-brand-text mb-1">LINE 諮詢</span>
+                    <span class="text-xs text-brand-muted font-light">@naiching0310</span>
+                </a>
+                
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/liu.jing.jing.680409/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white rounded-[2rem] shadow-softer hover:shadow-soft transition-shadow group">
+                    <div class="w-12 h-12 bg-[#1877F2]/10 text-[#1877F2] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-facebook-logo text-2xl"></i>
+                    </div>
+                    <span class="font-medium text-brand-text mb-1">Facebook</span>
+                    <span class="text-xs text-brand-muted font-light">追蹤最新動態</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/clda.7310/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center p-8 bg-white rounded-[2rem] shadow-softer hover:shadow-soft transition-shadow group">
+                    <div class="w-12 h-12 bg-[#E1306C]/10 text-[#E1306C] rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-instagram-logo text-2xl"></i>
+                    </div>
+                    <span class="font-medium text-brand-text mb-1">Instagram</span>
+                    <span class="text-xs text-brand-muted font-light">日常健康分享</span>
+                </a>
+            </div>
+
+            <!-- 大型 CTA -->
+            <a href="https://lihi1.me/EqGfC" target="_blank" rel="noopener noreferrer" class="inline-block w-full sm:w-auto px-12 py-5 bg-brand-text text-white rounded-full text-lg font-medium hover:bg-black transition-all duration-300 shadow-soft hover:shadow-lg">
+                免費預約諮詢
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-white border-t border-gray-100 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-sm text-gray-400 mb-4 font-light">
+                免責聲明：本網站內容僅供健康生活資訊分享與經驗交流，不作為醫療診斷、治療或療效保證之依據；如有健康疑慮，請洽詢專業醫療人員。
+            </p>
+            <p class="text-sm text-gray-500 font-medium tracking-wide">
+                Copyright © 2026.07 菁菁健康顧問
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-white/95 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 px-4" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-colors z-10" onclick="closeLightbox()">
+            <i class="ph ph-x text-xl"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="放大圖片" class="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-soft" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // 1. 純粹的 Fade In 動畫 (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // 執行一次後即可取消觀察，節省效能
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-element').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // 2. About Me Read More Logic
+        const bioText = document.getElementById('bio-text');
+        const readMoreBtn = document.getElementById('read-more-btn');
+        let isExpanded = false;
+
+        readMoreBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            if (isExpanded) {
+                bioText.classList.remove('bio-text-collapsed');
+                bioText.classList.add('bio-text-expanded');
+                readMoreBtn.innerHTML = `<span>顯示更少</span> <i class="ph ph-caret-up"></i>`;
+            } else {
+                bioText.classList.add('bio-text-collapsed');
+                bioText.classList.remove('bio-text-expanded');
+                readMoreBtn.innerHTML = `<span>顯示更多</span> <i class="ph ph-caret-down"></i>`;
+                // 滾動回關於我區塊頂部
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // 3. Gallery Load More Logic (使用 LINE ALBUM 命名)
+        const totalGalleryItems = 23; // 支援您上傳的 23 張案例
+        const itemsPerPage = 9;
+        let currentlyShown = 0;
+        const galleryContainer = document.getElementById('gallery-container');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+
+        function createGalleryItem(index) {
+            // 使用您提供的真實檔名
+            const fileName = `LINE_ALBUM_ _260726_${index}.jpg`;
+            return `
+                <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                    <img src="./${fileName}" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x600/E5E5E5/8B9D83?text=案例圖片載入中...';" 
+                         alt="成果案例 ${index}" 
+                         class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+                </div>
+            `;
+        }
+
+        function initGallery() {
+            // 先把所有卡片的 HTML 塞入容器
+            let html = '';
+            for (let i = 1; i <= totalGalleryItems; i++) {
+                html += createGalleryItem(i);
+            }
+            galleryContainer.innerHTML = html;
+            
+            // 顯示第一批
+            loadMoreItems();
+        }
+
+        function loadMoreItems() {
+            const items = document.querySelectorAll('.gallery-item');
+            const end = Math.min(currentlyShown + itemsPerPage, totalGalleryItems);
+            
+            for (let i = currentlyShown; i < end; i++) {
+                items[i].classList.remove('hidden');
+                // 加入一點淡入效果
+                items[i].style.opacity = '0';
+                setTimeout(() => {
+                    items[i].style.transition = 'opacity 0.8s ease';
+                    items[i].style.opacity = '1';
+                }, (i - currentlyShown) * 100); // 錯開載入時間產生優雅感
+            }
+            
+            currentlyShown = end;
+
+            // 隱藏按鈕如果已經全部顯示
+            if (currentlyShown >= totalGalleryItems) {
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+
+        loadMoreBtn.addEventListener('click', loadMoreItems);
+        
+        // 確保 DOM 載入後初始化 Gallery
+        document.addEventListener('DOMContentLoaded', initGallery);
+
+        // 4. Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        // 綁定到 window 上讓行內 onclick 可以呼叫
+        window.openLightbox = function(element) {
+            const img = element.querySelector('img');
+            if(img) {
+                lightboxImg.src = img.src;
+                lightbox.classList.remove('hidden');
+                // 延遲一點點加 opacity 產生淡入
+                setTimeout(() => {
+                    lightbox.classList.remove('opacity-0');
+                    lightbox.classList.add('opacity-100');
+                }, 10);
+                document.body.style.overflow = 'hidden'; // 防止背景滾動
+            }
+        };
+
+        window.closeLightbox = function() {
+            lightbox.classList.remove('opacity-100');
+            lightbox.classList.add('opacity-0');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+                document.body.style.overflow = ''; // 恢復背景滾動
+            }, 300);
+        };
+
+        // 鍵盤 ESC 關閉 Lightbox
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape" && !lightbox.classList.contains('hidden')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
