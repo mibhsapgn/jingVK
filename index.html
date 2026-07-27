@@ -291,22 +291,96 @@
         </div>
     </section>
 
-    <!-- ④ 成果分享 (Gallery) -->
-    <section id="gallery" class="py-24 px-6 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.02)]">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4 fade-element">成果分享</h2>
-            <p class="text-brand-muted font-light mb-16 fade-element">遇見更好的自己，他們做到了</p>
-            
-            <!-- 3x3 Grid -->
-            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 fade-element">
-                <!-- 圖片由 JavaScript 動態生成載入 -->
+<!-- ④ 成果分享 (Gallery) -->
+<section id="gallery" class="py-24 px-6 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.02)]">
+    <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-brand-text mb-4 fade-element is-visible">成果分享</h2>
+        <p class="text-brand-muted font-light mb-16 fade-element is-visible">遇見更好的自己，他們做到了</p>
+        
+        <!-- 3x3 Grid -->
+        <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 fade-element is-visible">
+            <!-- 預設顯示前 9 張 (3x3) -->
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case1.jpg" alt="成果案例 1" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case2.jpg" alt="成果案例 2" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case3.jpg" alt="成果案例 3" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case4.jpg" alt="成果案例 4" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case5.jpg" alt="成果案例 5" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case6.jpg" alt="成果案例 6" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case7.jpg" alt="成果案例 7" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case8.jpg" alt="成果案例 8" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case9.jpg" alt="成果案例 9" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
             </div>
 
-            <button id="load-more-btn" class="mt-16 inline-flex items-center justify-center px-8 py-3 bg-brand-bg text-brand-text rounded-full text-sm font-medium hover:bg-gray-200 transition-colors fade-element">
-                查看更多案例
-            </button>
+            <!-- 隱藏項 (點擊載入更多後顯示：case10 ~ case24) -->
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case10.jpg" alt="成果案例 10" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case11.jpg" alt="成果案例 11" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case12.jpg" alt="成果案例 12" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case13.jpg" alt="成果案例 13" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case14.jpg" alt="成果案例 14" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case15.jpg" alt="成果案例 15" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case16.jpg" alt="成果案例 16" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case17.jpg" alt="成果案例 17" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case18.jpg" alt="成果案例 18" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case19.jpg" alt="成果案例 19" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case20.jpg" alt="成果案例 20" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case21.jpg" alt="成果案例 21" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case22.jpg" alt="成果案例 22" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case23.jpg" alt="成果案例 23" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="gallery-item hidden rounded-[2rem] overflow-hidden shadow-softer aspect-square cursor-pointer group bg-brand-bg p-2" onclick="openLightbox(this)">
+                <img src="img/case/case24.jpg" alt="成果案例 24" class="object-cover w-full h-full rounded-[1.5rem] transform group-hover:scale-105 transition-transform duration-500">
+            </div>
         </div>
-    </section>
+
+        <button id="load-more-btn" class="mt-16 inline-flex items-center justify-center px-8 py-3 bg-brand-bg text-brand-text rounded-full text-sm font-medium hover:bg-gray-200 transition-colors fade-element is-visible">
+            查看更多案例
+        </button>
+    </div>
+</section>
 
     <!-- ⑤ Contact 區 -->
     <section id="contact" class="py-24 px-6 bg-brand-bg">
